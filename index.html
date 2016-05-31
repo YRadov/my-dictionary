@@ -1,0 +1,140 @@
+<!DOCTYPE  HTML>
+<!--<html  manifest="manifest.appcache" ng-app="translateModule">-->
+<html  ng-app="translateModule">
+<head>
+    <meta  charset="UTF-8">
+    <title>My English</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link  rel="stylesheet"  href="js/jquery.mobile-1.4.5.min.css"  />
+    <link  rel="stylesheet"  href="css/my.css"  />
+    <script  src="js/jquery.min.js"></script>
+    <!-- Jquery.mobile.js -->
+    <script  src="js/jquery.mobile-1.4.5.min.js"></script>
+    <!-- Angular.js -->
+    <script src="js/angular.js"></script>
+    <script src="js/app.js"></script>
+    <script  src="js/my.js"></script>
+</head>
+<body>
+<div  data-role="page"  id="home"  ng-controller="translateCtrl">
+    <!--=======HEADER==========-->
+    <div data-role="header">
+        <h1>Главная</h1>
+    </div><!--data-role="header"-->
+
+
+    <!--=======CONTENT==============-->
+    <div  data-role="content" class="content-">
+
+        <fieldset data-role="controlgroup" data-type="horizontal">
+            <label for="en-ru-show">En-Ru</label>
+            <input type="radio" name="fname" id="en-ru-show"  ng-click="enRu($event)">
+            <label for="en-show">En</label>
+            <input type="radio" name="fname" id="en-show"     ng-click="En($event)">
+            <label for="ru-show">Ru</label>
+            <input type="radio" name="fname" id="ru-show"     ng-click="Ru($event)">
+        </fieldset>
+
+        <p ng-hide="!en.show"><span>{{en.text}}</span></p>
+        <p ng-hide="!en.show">[{{tr.text}}]</p>
+        <p ng-hide="!ru.show">{{ru.text}}</p>
+
+        <div data-role="controlgroup" data-type="horizontal">
+            <button class="ui-btn-active" id="prev" ng-click="prevWord($event)">prev</button>
+            <button class="ui-btn-active" id="hint" ng-click="Hint($event)">hint</button>
+            <button class="ui-btn-active" id="next" ng-click="nextWord($event)">next</button>
+        </div>
+
+    </div><!--data-role="content"-->
+
+    <!---=========FOOTER===========================================-->
+    <div  data-role="footer"  data-position="fixed"  data-id="toolbar">
+        <div data-role="navbar">
+            <ul>
+                <!-- Главная -->
+                <li><a  href="#home"  data-icon="home"
+                        data-transition="fade">Главная</a></li>
+                <!-- Словарь -->
+                <li><a  href="#diction"  data-icon="grid"
+                        data-transition="fade">Словарь</a></li>
+                <!-- Ввод слов -->
+                <li><a  href="#add"  data-icon="info"
+                        data-transition="fade">Добавить</a></li>
+            </ul>
+        </div>
+    </div><!--data-role="footer"-->
+
+</div><!--data-role="page"-->
+
+<!--=======================СЛОВАРЬ=================================================-->
+<div  data-role="page"  id="diction">
+
+    <div data-role="header">
+        <h1>Словарь</h1>
+    </div>
+
+    <div data-role="content"></div>
+
+    <div  data-role="footer"  data-position="fixed"  data-id="toolbar">
+        <div data-role="navbar">
+            <ul>
+                <!-- Главная -->
+                <li><a  href="#home"  data-icon="home"
+                        data-transition="fade">Главная</a></li>
+                <!-- Словарь -->
+                <li><a  href="#diction"  data-icon="grid"
+                        data-transition="fade">Словарь</a></li>
+                <!-- Ввод слов -->
+                <li><a  href="#add"  data-icon="info"
+                        data-transition="fade">Добавить</a></li>
+            </ul>
+        </div>
+    </div><!--data-role="footer"-->
+
+</div>
+<!--==============================================================================-->
+
+
+<!--=================ДОБАВИТЬ НОВОЕ===============================================-->
+<div  data-role="page"  id="add">
+
+    <div data-role="header">
+        <h1>Добавить</h1>
+    </div>
+
+    <div data-role="content"></div>
+
+    <div  data-role="footer"  data-position="fixed"  data-id="toolbar">
+        <div data-role="navbar">
+            <ul>
+                <!-- Главная -->
+                <li><a  href="#home"  data-icon="home"
+                        data-transition="fade">Главная</a></li>
+                <!-- Словарь -->
+                <li><a  href="#diction"  data-icon="grid"
+                        data-transition="fade">Словарь</a></li>
+                <!-- Ввод слов -->
+                <li><a  href="#add"  data-icon="info"
+                        data-transition="fade">Добавить</a></li>
+            </ul>
+        </div>
+    </div><!--data-role="footer"-->
+
+</div>
+<!--==============================================================================-->
+
+
+<!--==============================================================================-->
+<!--<div  data-role="page"  id="">-->
+
+    <!--<div data-role="header"></div>-->
+
+    <!--<div data-role="content"></div>-->
+
+    <!--<div data-role="footer"  data-position="fixed"  data-id="toolbar"></div>-->
+
+<!--</div>-->
+<!--==============================================================================-->
+
+</body>
+</html>

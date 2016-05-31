@@ -1,0 +1,17 @@
+.content-home p {
+  text-align: center;
+}
+.ui-header {
+  text-align: center;
+}
+.ui-btn-active {
+  text-transform: uppercase;
+}
+.ui-content p {
+  text-align: center;
+  margin-top: 30px;
+}
+.ui-controlgroup-horizontal {
+  margin-top: 50px;
+  text-align: center;
+}
