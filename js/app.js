@@ -1,10 +1,13 @@
-angular.module("translateModule", [])
-    .controller("translateCtrl", function ($scope) {
+var app = angular.module("translateModule", []);
+
+app.controller("translateCtrl", function ($scope) {
 //-------------------------------------------------------------------------
         //===ПЕРЕМЕННЫЕ====//
         //console.log(' = '+);
+        var localWord = [];
+        //JSON.stringify(obj)
 
-        //массив со словами
+        //МАССИВ СЛОВ
         $scope.Words = [
             {en:"accept ",tr:"əkˈsept",ru:"принимать, брать"},
             {en:"according ",tr:"əˈkɔːdɪŋ",ru:"в зависимости от"},
@@ -100,6 +103,9 @@ angular.module("translateModule", [])
             {en:"vulnerable ",tr:"ˈvʌlnərəbl",ru:"уязвимый"},
             {en:"worth ",tr:"wɜːθ",ru:"стоимость, цена"}
         ];
+        //дополняем из хранилища
+
+        //------------------------
         /**
          * режим отображения
          * @value en-ru, en, ru
@@ -113,9 +119,17 @@ angular.module("translateModule", [])
         $scope.max_step = $scope.Words.length;
         console.log('Слов в словаре - '+  $scope.max_step);
 
+        $scope.mode_active = 'checked';
+
 
 
 //-------------------------------------------------------------------------
+        //ВЫВОД ЗНАЧЕНИЙ СЛОВ(начальные значения)
+        $scope.en = {text:'English',show:true};
+        $scope.tr = {text:'transcription',show:true};
+        $scope.ru = {text:'Russian',show:true};
+//-------------------------------------------------------------------------
+        //ПЕРЕКЛЮЧЕНИЕ РЕЖИМОВ
         $scope.changeMode = function(mode){
             switch (mode){
                 case ("en-ru"):
@@ -137,13 +151,7 @@ angular.module("translateModule", [])
             }
 
         }
-//-------------------------------------------------------------------------
-        //ВЫВОД ЗНАЧЕНИЙ СЛОВ
-        $scope.en = {text:'English',show:true};
-        $scope.tr = {text:'transcription',show:true};
-        $scope.ru = {text:'Russian',show:true};
-//-------------------------------------------------------------------------
-        //ПЕРЕКЛЮЧЕНИЕ РЕЖИМОВ
+
         $scope.enRu = function(e){
             $scope.changeMode('en-ru');
             $scope.mode = "en-ru";
@@ -227,6 +235,142 @@ angular.module("translateModule", [])
             //$scope.tr = {text:'transcription',show:true};
             //$scope.ru = {text:'Russian',show:true};
             location.reload();
+            //$('#en_ru_show').prop("checked",true);
         }
 
     });//translateCtrl
+
+app.controller("newWordsCtrl", function ($scope) {
+    //очистка памяти
+    localStorage.clear();
+
+    //ЗНАЧЕНИЯ СЛОВА
+    $scope.en_new = '';
+    $scope.tr_new = '';
+    $scope.ru_new = '';
+    //размер массива слов в хранилище
+    var loaded_size = 0;
+
+
+    //Показ сообщений
+    function errorMessages(message){
+        $('.error').text(message).fadeIn().delay(2000).fadeOut();
+    }
+
+
+    var localWord;
+    /**
+     * JSON.parse – читает объекты из строки в формате JSON.
+     * JSON.stringify – превращает объекты в строку в формате JSON,
+     * используется, когда нужно из JavaScript передать данные по сети.
+     * {"en":"accept","tr":"əkˈsept","ru":"принимать, брать"},
+     */
+
+
+    //ПОКАЗ ВСЕХ СЛОВ В ХРАНИЛИЩЕ
+    $scope.showLocalWords = function()
+    {
+        console.log('++++++++++++++++++++++++++++++++++');
+        console.log('СЛОВА В ХРАНИЛИЩЕ');
+        console.log('слов в хранилище - '+loaded_size);
+        for(var i = 0; i < loaded_size; i++)
+        {
+            var word_of_store = localStorage.getItem('localWord'+i);
+            var word_parse = JSON.parse(word_of_store);
+            console.log(word_parse);
+
+        }
+        console.log('++++++++++++++++++++++++++++++++++');
+    }
+
+
+    //получение количества слов в хранилище
+    $scope.getCountWords = function()
+    {
+        if(localStorage.getItem("storeSize")
+            && parseInt(localStorage.getItem("storeSize")) !== 0)
+        {
+            errorMessages('!!!В ХРАНЛИЩЕ ЕСТЬ ДАННЫЕ!!!');
+            //размер массива слов в хранилище
+            loaded_size = parseInt(localStorage.getItem("storeSize"));
+        }
+        else
+        {
+            errorMessages('!!!В ХРАНЛИЩЕ НЕТ ДАННЫХ!!!');
+            //инициируем хранилище(0)
+            loaded_size = 0;
+            localStorage.setItem("storeSize",loaded_size);
+        }
+        return loaded_size;
+    }
+
+
+    //СОХРАНЕНИЕ НОВОГО СЛОВА
+    $scope.setNewWord = function()
+    {
+        //проверяем заполнение полей
+        if(!$scope.en_new || !$scope.ru_new)
+        {
+            errorMessages('!!!ВВЕДЕНЫ НЕ ВСЕ ДАННЫЕ!!!');
+            return false;
+        }
+
+        var res = confirm('Сохранить слово?');
+
+        if(res)
+        {
+            loaded_size = $scope.getCountWords();
+            console.log('слов в хранилище - '+loaded_size);
+            //номер слова = loaded_size
+            var word_num = loaded_size;
+
+            var en = $scope.en_new;
+            var tr = ($scope.tr_new)?$scope.tr_new:"undefined";
+            var ru = $scope.ru_new;
+            //заполнение нового слова
+            localWord = {
+                "en":en,
+                "tr":tr,
+                "ru":ru
+            };
+            //перед сохранением сериализуем
+            var word_fo_store = JSON.stringify(localWord);
+            //console.log('Сохраняемое слово:');
+            //console.log(word_fo_store);
+            var StoreName = 'localWord'+word_num;
+            //console.log('StoreName'+StoreName);
+
+            //помещаем строку в хранилище
+            localStorage.setItem(StoreName,word_fo_store);
+
+            //console.log(localStorage.getItem(StoreName));
+            //*******************************************
+            //получение объекта из строки
+            //var word_parse = JSON.parse(word_fo_store);
+            //console.log(word_parse['en']);
+            //*******************************************
+        }
+
+        //увеличиваем кол-во слов в хранилище
+        loaded_size++;
+        localStorage.setItem("storeSize",loaded_size);
+
+        errorMessages('!!!СЛОВО ДОБАВЛЕНО!!!');
+
+        //очищаем поля формы
+        $scope.resetNewWord();
+
+        //все слова в хранилище
+        $scope.showLocalWords();
+    };
+
+
+    //ОЧИСТКА ПОЛЕЙ НОВОГО СЛОВА
+    $scope.resetNewWord = function()
+    {
+        $scope.en_new = '';
+        $scope.tr_new = '';
+        $scope.ru_new = '';
+    };
+
+});//newWordsCtrl
