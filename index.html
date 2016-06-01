@@ -27,28 +27,29 @@
     <div  data-role="content" class="content-home">
 
         <fieldset data-role="controlgroup" data-type="horizontal">
-            <label for="en-show">En</label>
-            <input type="radio" name="fname" id="en-show"     ng-click="En($event)">
-            <label for="en-ru-show">En-Ru</label>
-            <input type="radio" name="fname" id="en-ru-show"  ng-click="enRu($event)">
-            <label for="ru-show">Ru</label>
-            <input type="radio" name="fname" id="ru-show"     ng-click="Ru($event)">
+            <label for="en_show">En</label>
+            <input type="radio" name="fname" id="en_show"    ng-click="En($event)">
+            <label for="en_ru_show">En-Ru</label>
+            <input type="radio" name="fname" id="en_ru_show" ng-click="enRu($event)" checked >
+            <label for="ru_show">Ru</label>
+            <input type="radio" name="fname" id="ru_show"    ng-click="Ru($event)">
         </fieldset>
 
-        <h2 ng-hide="!en.show"><span>{{en.text}}</span></h2>
-        <h2 ng-hide="!en.show">[{{tr.text}}]</h2>
-        <h2 ng-hide="!ru.show">{{ru.text}}</h2>
+        <h2 ng-hide="!en.show"><span class="num-of-word" ng-hide="!step">№{{step}}</span>&nbsp;{{en.text}}</h2>
+        <p ng-hide="!en.show">[{{tr.text}}]</p>
+        <h2 ng-hide="!ru.show"><span class="num-of-word" ng-hide="en.show">№{{step}}</span>&nbsp;{{ru.text}}</h2>
 
-        <div data-role="controlgroup" data-type="horizontal">
-            <button class="ui-btn-active" id="prev" ng-click="prevWord($event)">prev</button>
-            <button class="ui-btn-active" id="hint" ng-click="Hint($event)">hint</button>
-            <button class="ui-btn-active" id="next" ng-click="nextWord($event)">next</button>
+        <div class="contr-grupp">
+            <div data-role="controlgroup" data-type="horizontal">
+                <button class="ui-btn-active" id="prev" ng-click="prevWord($event)">prev</button>
+                <button data-icon="info" data-iconpos="right" class="ui-btn-active" id="hint" ng-click="Hint($event)">hint</button>
+                <button class="ui-btn-active" id="next" ng-click="nextWord($event)">next</button>
+            </div>
+
+            <div class="reset">
+                <button data-icon="back" class="ui-btn-active" data-inline="true" data-mini="true" id="reset" ng-click="Reset($event)">reset</button>
+            </div>
         </div>
-
-        <div class="reset">
-            <button class="ui-btn-active" data-inline="true" data-mini="true" id="reset" ng-click="Reset($event)">reset</button>
-        </div>
-
     </div><!--data-role="content"-->
 
     <!---=========FOOTER===========================================-->
