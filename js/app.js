@@ -1,18 +1,29 @@
 angular.module("translateModule", [])
     .controller("translateCtrl", function ($scope) {
 //-------------------------------------------------------------------------
-        //ПЕРЕМЕННЫЕ
+        //===ПЕРЕМЕННЫЕ====//
+        //console.log(' = '+);
+
+        //массив со словами
         $scope.Words = [
             {en:"accept",tr:"əkˈsept",ru:"принимать, брать"},
             {en:"capable",tr:"ˈkeɪpəbl",ru:"способен, дееспособный"},
             {en:"entity",tr:"ˈentɪtɪ",ru:"сущность, объект"}
         ];
-
         /**
+         * режим отображения
          * @value en-ru, en, ru
          * @type {string}
          */
         $scope.mode = "en-ru";
+        //счетчик для перехода по словам вперед/назад
+        $scope.step = 0;
+        //min и max значения step
+        $scope.min_step = 0;
+        $scope.max_step = $scope.Words.length;
+        console.log('Слов в словаре - '+  $scope.max_step);
+
+
 
 //-------------------------------------------------------------------------
         $scope.changeMode = function(mode){
@@ -83,13 +94,43 @@ angular.module("translateModule", [])
          * восстановить режим!!!
          */
         $scope.nextWord = function(e) {
-
+            $scope.changeMode($scope.mode);
+            $scope.en.text = $scope.Words[$scope.step].en;
+            $scope.tr.text = $scope.Words[$scope.step].tr;
+            $scope.ru.text = $scope.Words[$scope.step].ru;
+            //зацикливаем прокрутку слов
+            if($scope.step < $scope.max_step -1)
+            {
+                $scope.step++;
+            }
+            else
+            {
+                $scope.step = $scope.min_step;
+            }
         }
 
 
 //-------------------------------------------------------------------------
         //ПОКАЗАТЬ ПРЕДЫДУЩЕЕ СЛОВО
         $scope.prevWord = function(e) {
+            $scope.changeMode($scope.mode);
+            $scope.en.text = $scope.Words[$scope.step].en;
+            $scope.tr.text = $scope.Words[$scope.step].tr;
+            $scope.ru.text = $scope.Words[$scope.step].ru;
+            //зацикливаем прокрутку слов
+            if($scope.step == $scope.min_step)
+            {
+                $scope.step = $scope.max_step - 1;
+            }
+            else
+            {
+                $scope.step--;
+            }
+        }
+
+//-------------------------------------------------------------------------
+        //RESET - в начальное состояние
+        $scope.Reset = function(e) {
 
         }
 

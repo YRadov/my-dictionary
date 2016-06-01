@@ -24,7 +24,7 @@
 
 
     <!--=======CONTENT==============-->
-    <div  data-role="content" class="content-">
+    <div  data-role="content" class="content-home">
 
         <fieldset data-role="controlgroup" data-type="horizontal">
             <label for="en-show">En</label>
@@ -35,9 +35,9 @@
             <input type="radio" name="fname" id="ru-show"     ng-click="Ru($event)">
         </fieldset>
 
-        <p ng-hide="!en.show"><span>{{en.text}}</span></p>
-        <p ng-hide="!en.show">[{{tr.text}}]</p>
-        <p ng-hide="!ru.show">{{ru.text}}</p>
+        <h2 ng-hide="!en.show"><span>{{en.text}}</span></h2>
+        <h2 ng-hide="!en.show">[{{tr.text}}]</h2>
+        <h2 ng-hide="!ru.show">{{ru.text}}</h2>
 
         <div data-role="controlgroup" data-type="horizontal">
             <button class="ui-btn-active" id="prev" ng-click="prevWord($event)">prev</button>
