@@ -1,6 +1,12 @@
 .content-home p {
   text-align: center;
 }
+div.reset {
+  text-align: center;
+}
+div.reset button {
+  background-color: red !important;
+}
 .ui-header {
   text-align: center;
 }

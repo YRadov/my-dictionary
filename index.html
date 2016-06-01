@@ -27,10 +27,10 @@
     <div  data-role="content" class="content-">
 
         <fieldset data-role="controlgroup" data-type="horizontal">
-            <label for="en-ru-show">En-Ru</label>
-            <input type="radio" name="fname" id="en-ru-show"  ng-click="enRu($event)">
             <label for="en-show">En</label>
             <input type="radio" name="fname" id="en-show"     ng-click="En($event)">
+            <label for="en-ru-show">En-Ru</label>
+            <input type="radio" name="fname" id="en-ru-show"  ng-click="enRu($event)">
             <label for="ru-show">Ru</label>
             <input type="radio" name="fname" id="ru-show"     ng-click="Ru($event)">
         </fieldset>
@@ -45,10 +45,14 @@
             <button class="ui-btn-active" id="next" ng-click="nextWord($event)">next</button>
         </div>
 
+        <div class="reset">
+            <button class="ui-btn-active" data-inline="true" data-mini="true" id="reset" ng-click="Reset($event)">reset</button>
+        </div>
+
     </div><!--data-role="content"-->
 
     <!---=========FOOTER===========================================-->
-    <div  data-role="footer"  data-position="fixed"  data-id="toolbar">
+    <div  data-role="footer" data-position="fixed"  data-id="toolbar">
         <div data-role="navbar">
             <ul>
                 <!-- Главная -->
