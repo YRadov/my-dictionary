@@ -1,6 +1,6 @@
 var app = angular.module("translateModule", []);
 
-app.controller("translateCtrl", function ($scope) {
+app.controller("translateCtrl", function ($rootScope,$scope) {
 //-------------------------------------------------------------------------
     //===ПЕРЕМЕННЫЕ====//
     //console.log(' = '+);
@@ -9,10 +9,12 @@ app.controller("translateCtrl", function ($scope) {
         {en: "accept ", tr: "əkˈsept", ru: "принимать, брать"},
         {en: "according ", tr: "əˈkɔːdɪŋ", ru: "в зависимости от"},
         {en: "accomplish ", tr: "əˈkɔmplɪʃ", ru: "выполнять, совершать"},
+        {en: "assign", tr: "əˈsaɪn", ru: "назначать, присваивать"},
         {en: "adjust ", tr: "əˈʤʌst", ru: "регулировать"},
-        {en: "admit ", tr: "---", ru: "допускать, признать"},
-        {en: "affect ", tr: "---", ru: "влиять, воздействовать"},
-        {en: "affair ", tr: "---", ru: "дело, вопрос"},
+        {en: "admit ", tr: "ədˈmɪt", ru: "допускать, признать"},
+        {en: "affect ", tr: "əˈfekt", ru: "влиять, воздействовать"},
+        {en: "affair ", tr: "əˈfɛə", ru: "дело, вопрос"},
+        {en: "alter", tr: "ˈɔːltə", ru: "изменять, менять, переделывать"},
         {en: "ambiguous ", tr: "æmˈbɪgjʊəs", ru: "неоднозначно"},
         {en: "ancestor ", tr: "ˈænsɪstə", ru: "предок"},
         {en: "anticipate ", tr: "ænˈtɪsɪpeɪt", ru: "ожидать, прогнозировать"},
@@ -22,9 +24,9 @@ app.controller("translateCtrl", function ($scope) {
         {en: "appropriate ", tr: "əˈprəʊprɪɪt", ru: "соответствующий, надлежащий"},
         {en: "arbitrary ", tr: "ˈɑːbɪtrərɪ", ru: "произвольный, случайный"},
         {en: "assets ", tr: "ˈæsets", ru: "средства"},
-        {en: "assertion ", tr: "əˈsɜːʃn ", ru: "methods - методы проверки"},
+        {en: "assertion ", tr: "əˈsɜːʃn] methods - методы проверки"},
         {en: "assigned ", tr: "əˈsaɪnd", ru: "заданный, назначенный"},
-        {en: "assignment ", tr: "---", ru: "назначение"},
+        {en: "assignment ", tr: "əˈsaɪnmənt", ru: "назначение"},
         {en: "asterisk ", tr: "ˈæstərɪsk", ru: "звездочка"},
         {en: "backward-compatible ", tr: "ˈbækwəd-kəmˈpætəbl", ru: "обратно совместимый"},
         {en: "binding ", tr: "ˈbaɪndɪŋ", ru: "обязательный, связующий"},
@@ -36,53 +38,57 @@ app.controller("translateCtrl", function ($scope) {
         {en: "capture ", tr: "ˈkæpʧə", ru: "захватывает"},
         {en: "cause ", tr: "koːz", ru: "причина"},
         {en: "charset ", tr: "kɑːst", ru: "кодировка"},
-        {en: "collaborate ", tr: "---", ru: "сотрудничать"},
+        {en: "collaborate ", tr: "kəˈlæbəreɪt", ru: "сотрудничать"},
         {en: "compatibility ", tr: "kəmpætəˈbɪlɪtɪ", ru: "совместимость, сочетаемость"},
-        {en: "circumstances ", tr: "---", ru: "обстоятельства, условия"},
-        {en: "consequently ", tr: "---", ru: "следовательно"},
-        {en: "consequent ", tr: "---", ru: "следствие"},
-        {en: "consider", tr: "---", ru: "считать, учитывать"},
-        {en: "considerably", tr: "---", ru: "значительно,существенно"},
+        {en: "circumstances ", tr: "ˈsɜːkəmstənsɪz", ru: "обстоятельства, условия"},
+        {en: "consequently ", tr: "ˈkɔnsɪkwəntlɪ", ru: "следовательно"},
+        {en: "consequent ", tr: "ˈkɔnsɪkwənt", ru: "следствие"},
+        {en: "consider", tr: "kənˈsɪdə", ru: "считать, учитывать"},
+        {en: "considerably", tr: "kənˈsɪdərəblɪ", ru: "значительно,существенно"},
         {en: "consistency ", tr: "kənˈsɪstənsɪ", ru: "последовательность"},
-        {en: "constraint ", tr: "---", ru: "ограничение"},
-        {en: "conventional ", tr: "---", ru: "обычный, общепринятый"},
+        {en: "constraint ", tr: "kənˈstreɪnt", ru: "ограничение"},
+        {en: "conventional ", tr: "kənˈvenʃənl", ru: "обычный, общепринятый"},
         {en: "credential ", tr: "krɪˈdenʃəl", ru: "учетные данные"},
         {en: "customize ", tr: "ˈkʌstəmaɪz", ru: "настройка"},
         {en: "dash ", tr: "dæʃ", ru: "тире"},
         {en: "dedicated ", tr: "ˈdedɪkeɪtɪd", ru: "выделенный, назначенный"},
         {en: "default state ", tr: "dɪˈfɔːlt steɪt", ru: "состояние по умолчанию"},
-        {en: "detached ", tr: "---", ru: "отдельный, несвязанный"},
-        {en: "desired ", tr: "---", ru: "желательно, желанный"},
+        {en: "derived", tr: "dɪˈraɪvd", ru: "производный"},
+        {en: "detached ", tr: "dɪˈtæʧt", ru: "отдельный, несвязанный"},
+        {en: "desired ", tr: "dɪˈzaɪəd", ru: "желательно, желанный"},
         {en: "distinguish ", tr: "dɪsˈtɪŋgwɪʃ", ru: "различать, отличать"},
-        {en: "edit ", tr: "---", ru: "редактировать"},
+        {en: "edit ", tr: "ˈedɪt", ru: "редактировать"},
         {en: "embed ", tr: "ɪmˈbed", ru: "встраивать, внедрять"},
-        {en: "either ", tr: "---", ru: "или, любой, один из двух, так же"},
+        {en: "either ", tr: "ˈaɪðə", ru: "или, любой, один из двух, так же"},
         {en: "enclosed within ", tr: "---", ru: "заключенный в..."},
-        {en: "enhanced ", tr: "---", ru: "усовершенствовать, усиливать, повышать"},
-        {en: "ensure ", tr: "ɪnˈʃʊə", ru: "обеспечивать, гарантировать"},
-        {en: "entail ", tr: "ɪnteil", ru: "подразумевать, повлечь"},
-        {en: "entity ", tr: "ˈentɪtɪ", ru: "сущность, объект"},
-        {en: "exempt ", tr: "igzempt", ru: "освобождать"},
-        {en: "expose ", tr: "---", ru: "подвергать"},
-        {en: "extended ", tr: "---", ru: "расширенный"},
+        {en: "enhanced ", tr: "ɪnˈhɑːnst", ru: "усовершенствовать, усиливать, повышать"},
+        {en: "ensure", tr: "ɪnˈʃʊə", ru: "обеспечивать, гарантировать"},
+        {en: "entail", tr: "ɪnteil", ru: "подразумевать, повлечь"},
+        {en: "entity", tr: "ˈentɪtɪ", ru: "сущность, объект"},
+        {en: "exempt", tr: "igzempt", ru: "освобождать"},
+        {en: "expire", tr: "ɪksˈpaɪə", ru: "истекать, истечь, закончиться"},
+        {en: "expose ", tr: "eksˈpəʊzeɪ", ru: "подвергать"},
+        {en: "extended ", tr: "ɪksˈtendɪd", ru: "расширенный"},
         {en: "external ", tr: "eksˈtɜːnl", ru: "Внешний"},
-        {en: "essential ", tr: "---", ru: "необходимый, важный"},
-        {en: "estimate ", tr: "---", ru: "оценка"},
+        {en: "essential ", tr: "ɪˈsenʃəl", ru: "необходимый, важный"},
+        {en: "estimate ", tr: "ˈestɪmɪt", ru: "оценка"},
         {en: "feature ", tr: "ˈfiːʧə", ru: "особенность"},
         {en: "fetch ", tr: "feʧ", ru: "выборка"},
         {en: "forced ", tr: "forst", ru: "принудительный, вынужденный"},
         {en: "frequency ", tr: "ˈfriːkwənsɪ", ru: "частота"},
-        {en: "handle", tr: "---", ru: "обрабатывать, регулировать, управлять"},
-        {en: "handler", tr: "---", ru: "обработчик"},
+        {en: "handle", tr: "hændl", ru: "обрабатывать, регулировать, управлять"},
+        {en: "handler", tr: "ˈhændlər", ru: "обработчик"},
         {en: "hint ", tr: "hɪnt", ru: "подсказка"},
         {en: "implicitly ", tr: "ɪmˈplɪsɪtlɪ", ru: "неявно(implicitly convert – неявно преобразовывать)"},
         {en: "inconsistent ", tr: "ɪnkənˈsɪstənt", ru: "несовместимый"},
-        {en: "indeed ", tr: "---", ru: "действительно, всамом деле"},
+        {en: "indeed ", tr: "ɪnˈdiːd", ru: "действительно, всамом деле"},
         {en: "indent ", tr: "ˈɪndent", ru: "отступ, абзац(отступ при написании кода)"},
+        {en: "inheritance", tr: "ɪnˈherɪtəns", ru: "наследование"},
         {en: "inheritor ", tr: "ɪnˈherɪtə", ru: "наследник"},
         {en: "insert ", tr: "ˈɪnsət", ru: "вставка"},
         {en: "instance ", tr: "ˈɪnstəns", ru: "экземпляр(случай, пример)"},
-        {en: "intentionally ", tr: "---", ru: "намеренно"},
+        {en: "intended", tr: "ɪnˈtendɪd", ru: "предназначенный, рассчитанный"},
+        {en: "intentionally ", tr: "ɪnˈtenʃnəlɪ", ru: "намеренно"},
         {en: "interaction ", tr: "ɪntərˈækʃn", ru: "взаимодействие"},
         {en: "invoke ", tr: "ɪnˈvəʊk", ru: "вызвать"},
         {en: "involve ", tr: "ɪnˈvɔlv", ru: "касаться, затрагивать"},
@@ -97,7 +103,7 @@ app.controller("translateCtrl", function ($scope) {
         {en: "mentioning ", tr: "ˈmenʃnɪŋ", ru: "упоминание"},
         {en: "merge ", tr: "mɜːʤ", ru: "соединять"},
         {en: "mode ", tr: "məʊd", ru: "режим"},
-        {en: "moreover ", tr: "---", ru: "более того"},
+        {en: "moreover ", tr: "mɔːˈrəʊvə", ru: "более того"},
         {en: "nested ", tr: "ˈnestɪd", ru: "вложенный"},
         {en: "node ", tr: "nəʊd", ru: "узел"},
         {en: "obtain ", tr: "əbˈteɪn", ru: "получать"},
@@ -115,12 +121,14 @@ app.controller("translateCtrl", function ($scope) {
         {en: "proceed ", tr: "proˈsiːd", ru: "продолжать, приступать, приниматься"},
         {en: "redundant ", tr: "rɪˈdʌndənt", ru: "избыточные"},
         {en: "reference ", tr: "ˈrefrəns", ru: "ссылка"},
-        {en: "relate ", tr: "---", ru: "соотносить"},
+        {en: "relate ", tr: "rɪˈleɪt", ru: "соотносить"},
         {en: "remote ", tr: "rɪˈməʊt", ru: "hosting - удаленный хостинг"},
         {en: "resultset", tr: " - ", ru: "итоговый набор(например набор данных)"},
         {en: "respectively ", tr: "rɪsˈpektɪvlɪ", ru: "соответственно"},
         {en: "restrict ", tr: "rɪsˈtrɪkt", ru: "ограничивать"},
         {en: "retrieve ", tr: "rɪˈtriːv", ru: "получить"},
+        {en: "regarding", tr: "rɪˈgɑːdɪŋ", ru: "относительно,касательно"},
+        {en: "robust", tr: "rəʊˈbʌst", ru: "надежный"},
         {en: "scope", tr: " - ", ru: "область(видимости)"},
         {en: "sequence ", tr: "ˈsiːkwəns", ru: "последовательность"},
         {en: "skip ", tr: "skɪp", ru: "пропустить"},
@@ -128,20 +136,20 @@ app.controller("translateCtrl", function ($scope) {
         {en: "source ", tr: "so:s", ru: "выискивать"},
         {en: "subfolder ", tr: "sʌbˈfəʊldər", ru: "вложенная папка"},
         {en: "sufficient ", tr: "səˈfɪʃənt", ru: "достаточный"},
-        {en: "suppose ", tr: "---", ru: "предполагать"},
+        {en: "suppose ", tr: "səˈpəʊz", ru: "предполагать"},
         {en: "template ", tr: "ˈtemplɪt", ru: "шаблон"},
         {en: "tip ", tr: "tɪp", ru: "совет"},
-        {en: "threat ", tr: "---", ru: "угроза"},
+        {en: "threat ", tr: "θret", ru: "угроза"},
         {en: "typecasting performed", tr: " - ", ru: "приведение типов"},
         {en: "tought ", tr: "tʌf", ru: "трудный"},
-        {en: "treat ", tr: "---", ru: "рассматривать, обрабатывать"},
+        {en: "treat ", tr: "triːt", ru: "рассматривать, обрабатывать"},
         {en: "trigger ", tr: "ˈtrɪgə", ru: "инициировать"},
         {en: "URL {Uniform Resourse Locator}", tr: " - ", ru: "универсальный указатель ресурса"},
         {en: "variable ", tr: "ˈvɛərɪəbl", ru: "переменная"},
         {en: "vulnerable ", tr: "ˈvʌlnərəbl", ru: "уязвимый"},
         {en: "worth ", tr: "wɜːθ", ru: "стоимость, цена"}
     ];
-
+    $rootScope.Words = $scope.Words;
     /**
      * режим отображения
      * @value en-ru, en, ru
@@ -211,11 +219,11 @@ app.controller("translateCtrl", function ($scope) {
             var word_of_store = localStorage.getItem('localWord'+i);
             var word_parse = JSON.parse(word_of_store);
             console.log(word_parse);
-            Words[index] = word_parse;
-            console.log( 'Words['+index+']');
-            console.log( Words[index]);
+            $scope.Words[index] = word_parse;
+            console.log( 'Words['+index+'] = '+$scope.Words[index]);
+            //console.log( $scope.Words[index]);
             console.log('-----------------------');
-
+            index++;
         }
 
     }();
@@ -341,13 +349,15 @@ app.controller("translateCtrl", function ($scope) {
 //-------------------------------------------------------------------------
     //RESET - в начальное состояние
     $scope.Reset = function(e) {
-        //$scope.mode = "en-ru";
-        //$scope.step = 0;
-        //$scope.en = {text:'English',show:true};
-        //$scope.tr = {text:'transcription',show:true};
-        //$scope.ru = {text:'Russian',show:true};
-        location.reload();
-        //$('#en_ru_show').prop("checked",true);
+        $scope.mode = "en-ru";
+        $scope.step = 0;
+        $scope.en = {text:'English',show:true};
+        $scope.tr = {text:'transcription',show:true};
+        $scope.ru = {text:'Russian',show:true};
+        //location.reload();
+        $('#en_ru_show').prev().addClass("ui-btn-active ui-radio-on");
+        $('#en_show').prev().removeClass("ui-btn-active ui-radio-on");
+        $('#ru_show').prev().removeClass("ui-btn-active ui-radio-on");
     }
 
 });//translateCtrl
@@ -491,3 +501,7 @@ app.controller("newWordsCtrl", function ($scope) {
 //****************************************************************************
 //****************************************************************************
 //****************************************************************************
+app.controller("searchCtrl", function ($rootScope,$scope){
+    $scope.Words = $rootScope.Words;
+    $scope.search = '';
+});

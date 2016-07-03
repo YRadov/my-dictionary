@@ -8,6 +8,11 @@
     <link  rel="stylesheet"  href="js/jquery.mobile-1.4.5.min.css"  />
     <link  rel="stylesheet"  href="css/my.css"  />
     <script  src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).bind("mobileinit", function(){
+            $.mobile.loadingMessage = false;
+        });
+    </script>
     <!-- Jquery.mobile.js -->
     <script  src="js/jquery.mobile-1.4.5.min.js"></script>
     <!-- Angular.js -->
@@ -28,7 +33,7 @@
             <label for="en_show">En</label>
             <input type="radio" name="fname" id="en_show"    ng-click="En($event)">
             <label for="en_ru_show">En-Ru</label>
-            <input type="radio" name="fname" id="en_ru_show" ng-click="enRu($event)"   checked="checked">
+            <input type="radio" name="fname" id="en_ru_show" ng-click="enRu($event)" checked>
             <label for="ru_show">Ru</label>
             <input type="radio" name="fname" id="ru_show"    ng-click="Ru($event)">
         </fieldset>
@@ -47,6 +52,11 @@
             <div class="reset">
                 <button data-icon="back" class="ui-btn-active" data-inline="true" data-mini="true" id="reset" ng-click="Reset($event)">reset</button>
             </div>
+            <!--<div class="reset">-->
+                <!--<label for="num_for_del">№ Слова для удаления</label>-->
+                <!--<input type="text"  id="num_for_del" ng-model="id_del">-->
+                <!--<button data-icon="" class="ui-btn-active" data-inline="true" data-mini="true" id="delete" ng-click="Reset($event)">delete</button>-->
+            <!--</div>-->
         </div>
     </div><!--data-role="content"-->
 
@@ -70,13 +80,23 @@
 </div><!--data-role="page"-->
 
 <!--=======================СЛОВАРЬ=================================================-->
-<div  data-role="page"  id="diction">
+<div  data-role="page"  id="diction" ng-controller="searchCtrl">
 
     <div data-role="header">
         <h1>Словарь</h1>
     </div>
 
-    <div data-role="content"></div>
+    <div data-role="content">
+        <input type="text" id="search" ng-model="search" placeholder="search">
+        <div ng-show="search" ng-repeat="word in Words | filter : search">
+            <ul>
+                <li>{{word.en}}</li>
+                <li>[{{word.tr}}]</li>
+                <li>{{word.ru}}</li>
+            </ul>
+            <hr>
+        </div>
+    </div>
 
     <div  data-role="footer"  data-position="fixed"  data-id="toolbar">
         <div data-role="navbar">
